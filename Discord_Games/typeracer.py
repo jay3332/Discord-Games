@@ -151,12 +151,11 @@ class TypeRacer:
         if not words_mode:
             async with aiohttp.ClientSession() as session:
                 async with session.get(self.SENTENCE_URL) as r:
-                    if r.ok:
-                        text = await r.json()
-                        text = text.get("content")
-                    else:
+                    if not r.ok:
                         raise RuntimeError(f"HTTP request raised an error: {r.status}; {r.reason}")
 
+                    text = await r.json()
+                    text = text.get("content")
         else:
             text = " ".join(random.choice(self.GRAMMAR_WORDS).lower() for _ in range(15))
 
