@@ -115,8 +115,8 @@ class Akinator:
         while self.aki.progression <= self.win_at:
 
             def check(reaction: discord.Reaction, user: discord.Member) -> bool:
-                emoji = str(reaction.emoji)
                 if reaction.message == self.message and user == ctx.author:
+                    emoji = str(reaction.emoji)
                     try:
                         return bool(Options(emoji))
                     except ValueError:
